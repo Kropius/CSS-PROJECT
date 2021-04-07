@@ -1,11 +1,11 @@
-package css.be.service.impl;
+package css.be.service.operationImpl;
 
 import css.be.controllers.model.OperandsBody;
-import css.be.service.OperationService;
+import css.be.service.OperationCalculatorService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SubstractionService implements OperationService {
+public class SubstractionCalculatorService implements OperationCalculatorService {
 
     @Override
     public String operate(OperandsBody numbers) {

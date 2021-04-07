@@ -2,6 +2,6 @@ package css.be.service;
 
 import css.be.controllers.model.OperandsBody;
 
-public interface OperationService {
+public interface OperationCalculatorService {
     String operate(OperandsBody numbers);
 }
