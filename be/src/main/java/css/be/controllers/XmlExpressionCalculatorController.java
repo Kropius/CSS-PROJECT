@@ -1,6 +1,7 @@
 package css.be.controllers;
 
 import css.be.service.expressionImpl.ExpressionCalculatorServiceImpl;
+import css.be.service.expressionImpl.XmlExpressionCalculatorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,20 +10,20 @@ import javax.validation.constraints.NotEmpty;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(value = "compound")
-public class ExpressionCalculatorController {
+@RequestMapping(value = "xmlcompound")
+public class XmlExpressionCalculatorController {
 
-    private ExpressionCalculatorServiceImpl compoundOperationService;
+    private XmlExpressionCalculatorServiceImpl xmlCompoundOperationService;
 
     @Autowired
-    public ExpressionCalculatorController(ExpressionCalculatorServiceImpl compoundOperationService) {
-        this.compoundOperationService = compoundOperationService;
+    public XmlExpressionCalculatorController(XmlExpressionCalculatorServiceImpl xmlCompoundOperationService) {
+        this.xmlCompoundOperationService = xmlCompoundOperationService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public String calculateExpression(@NotEmpty @RequestBody String expression) {
-        return compoundOperationService.calculate(expression);
+        return xmlCompoundOperationService.calculate(expression);
     }
 
 }
