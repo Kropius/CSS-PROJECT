@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AdunareComponent} from './basicOperations/adunare/adunare.component';
+import {OperationComponent} from './basicOperations/operationComponents/operation.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
@@ -13,7 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
-    AdunareComponent,
+    OperationComponent,
 ],
   imports: [
     BrowserModule,

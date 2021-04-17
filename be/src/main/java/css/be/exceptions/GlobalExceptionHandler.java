@@ -18,6 +18,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = SquareRootFormatException.class)
     protected ResponseEntity<Object> handleSquareRootFormatException(SquareRootFormatException exception, WebRequest request) {
+        System.out.println("Square root error!");
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

@@ -2,13 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {OperationInput} from '../../models/OperationInput'
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {OperationService} from "../../service/operation-service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-adunare',
-  templateUrl: './adunare.component.html',
-  styleUrls: ['./adunare.component.scss']
+  templateUrl: './operation.component.html',
+  styleUrls: ['./operation.component.scss']
 })
-export class AdunareComponent implements OnInit {
+export class OperationComponent implements OnInit {
   result: string;
   operationInput: OperationInput;
   numberForm: FormGroup;
@@ -25,7 +26,10 @@ export class AdunareComponent implements OnInit {
       data =>{
       this.result = data;
     },
-      error => {this.result = 'Something went terrible wrong!'});
+      (error: HttpErrorResponse) => {this.result = error.error
+      console.log(error.message);
+      console.log(error);
+      });
   }
 
   constructor(private operationService: OperationService) {

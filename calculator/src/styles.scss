@@ -3,8 +3,13 @@ form {
   display: flex;
   flex-direction: column;
   background-color: aliceblue;
-  gap:5px;
+  border-radius: 2px;
+  border: 1px solid black;
+  &:hover{
+    transform: scale(1.025)
+  }
   button{
+    margin-top:10px;
     width:50%;
     margin-left: 25%;
     margin-bottom: 10px;
@@ -13,9 +18,10 @@ form {
     margin-left:10px;
     margin-right:10px;
     height:15px;
+    padding:2px;
   }
   label{
-    margin-bottom: 8px;
+    margin-bottom: 5px;
   }
 
 }
