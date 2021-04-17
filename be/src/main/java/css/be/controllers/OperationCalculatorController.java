@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "operation")
 public class OperationCalculatorController {
@@ -35,37 +36,38 @@ public class OperationCalculatorController {
     }
 
 
-    @GetMapping(value = "addition")
+    @PostMapping(value = "addition")
     @ResponseStatus(HttpStatus.OK)
     public String addNumbers(@Valid @RequestBody OperandsBody numbers) {
+        System.out.println(numbers.getFirstNumber());
         return additionService.operate(numbers);
     }
 
-    @GetMapping(value = "substraction")
+    @PostMapping(value = "substraction")
     @ResponseStatus(HttpStatus.OK)
     public String subtractNumbers(@Valid @RequestBody OperandsBody numbers) {
         return substractionService.operate(numbers);
     }
 
-    @GetMapping(value = "division")
+    @PostMapping(value = "division")
     @ResponseStatus(HttpStatus.OK)
     public String divideNumbers(@Valid @RequestBody OperandsBody numbers) {
         return divisionService.operate(numbers);
     }
 
-    @GetMapping(value = "multiplication")
+    @PostMapping(value = "multiplication")
     @ResponseStatus(HttpStatus.OK)
     public String multiplyNumbers(@Valid @RequestBody OperandsBody numbers) {
         return multiplicationService.operate(numbers);
     }
 
-    @GetMapping(value = "power")
+    @PostMapping(value = "power")
     @ResponseStatus(HttpStatus.OK)
     public String powerNumbers(@Valid @RequestBody OperandsBody numbers) {
         return powerService.operate(numbers);
     }
 
-    @GetMapping(value = "square")
+    @PostMapping(value = "square")
     @ResponseStatus(HttpStatus.OK)
     public String squareNumber(@RequestBody OperandsBody numbers) {
         return squareRootService.operate(numbers);
