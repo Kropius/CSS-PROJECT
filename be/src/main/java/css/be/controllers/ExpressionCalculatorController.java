@@ -21,7 +21,7 @@ public class ExpressionCalculatorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public String addNumbers(@NotEmpty @RequestBody String expression) {
+    public String calculateExpression(@NotEmpty @RequestBody String expression) {
         return compoundOperationService.calculate(expression);
     }
 

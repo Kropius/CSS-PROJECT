@@ -10,7 +10,6 @@ public class AdditionCalculatorService implements OperationCalculatorService {
 
     @Override
     public String operate(OperandsBody numbers) {
-        String result = String.format("Addition on  %s and %s ", numbers.getFirstNumber(), numbers.getSecondNumber());
 
         NumberValidator.validate(numbers.getFirstNumber());
         NumberValidator.validate(numbers.getSecondNumber());
@@ -19,7 +18,7 @@ public class AdditionCalculatorService implements OperationCalculatorService {
 
         reverseNumbers(numbers);
 
-        return String.format("%s is %s", result, performAddition(numbers));
+        return performAddition(numbers);
     }
 
     private void swapNumbersIfSmaller(OperandsBody numbers) {
