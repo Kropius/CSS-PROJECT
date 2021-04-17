@@ -69,7 +69,7 @@ public class OperationCalculatorController {
 
     @PostMapping(value = "square")
     @ResponseStatus(HttpStatus.OK)
-    public String squareNumber(@RequestBody OperandsBody numbers) {
-        return squareRootService.operate(numbers);
+    public String squareNumber(@RequestBody String number) {
+        return squareRootService.operate(number);
     }
 }

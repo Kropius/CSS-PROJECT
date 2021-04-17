@@ -4,6 +4,10 @@ import css.be.exceptions.InvalidNumberException;
 
 public class NumberValidator {
 
+    private NumberValidator(){
+
+    }
+
     public static void validate(String number){
         validateFirstDigit(number);
         validateNumberCharacters(number);
