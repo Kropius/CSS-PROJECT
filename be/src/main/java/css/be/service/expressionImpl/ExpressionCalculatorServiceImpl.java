@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 @Component
 public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorService {
@@ -26,6 +27,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         ExpressionTree leftSubTree = new ExpressionTree(new Node(""), null, null, expressionTree);
         expressionTree.setLeft(leftSubTree);
         return evaluateExpressionTree(buildExpressionTree(getListOfTokens(expression), leftSubTree, 0));
+//        return buildExpressionTree(getListOfTokens(expression), expressionTree, 0).toString();
     }
 
     private List<String> getListOfTokens(String expression) {
@@ -115,7 +117,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
             return powerCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
         }
         else if (expressionTree.getRoot().getValue().equals("sqrt")) {
-            //squareRootCalculatorService.operate(evaluateExpressionTree(expressionTree.getRight()));
+            squareRootCalculatorService.operate(evaluateExpressionTree(expressionTree.getRight()));
         }
         return expressionTree.getRoot().getValue();
     }
