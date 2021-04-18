@@ -9,8 +9,15 @@ public class NumberValidator {
     }
 
     public static void validate(String number){
+        validatePresenceOfNumber(number);
         validateFirstDigit(number);
         validateNumberCharacters(number);
+    }
+
+    private static void validatePresenceOfNumber(String number) {
+        if (number.length() == 0) {
+            throw new InvalidNumberException("Looks like one of the operands is missing!");
+        }
     }
 
     private static void validateFirstDigit(String number){

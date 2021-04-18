@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators'
 import {OperationInput} from "../models/OperationInput";
+import {ComplexOperationResult} from "../models/ComplexOperationResult";
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +34,8 @@ export class OperationService {
     })
   }
 
-  public calculateExpression(expression: string): Observable<string> {
-    return this.http.post(`${this.url}/compound/`, expression, {
-      responseType: 'text'
-    })
+  public calculateExpression(expression: string): Observable<ComplexOperationResult> {
+    return this.http.post<ComplexOperationResult>(`${this.url}/compound/`, expression)
   }
 
   private add(operationInput: OperationInput): Observable<string> {
