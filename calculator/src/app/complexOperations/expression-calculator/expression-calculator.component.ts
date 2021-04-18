@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
 import {OperationService} from "../../service/operation-service";
+import {ComplexOperationResult} from "../../models/ComplexOperationResult";
 
 @Component({
   selector: 'app-expression-calculator',
@@ -11,7 +12,8 @@ import {OperationService} from "../../service/operation-service";
 export class ExpressionCalculatorComponent implements OnInit {
 
 
-  result: string;
+  result: ComplexOperationResult;
+  error: String;
   expression: string;
   expressionForm: FormControl;
 
@@ -22,9 +24,10 @@ export class ExpressionCalculatorComponent implements OnInit {
     this.operationService.calculateExpression(this.expression).subscribe(
       data => {
         this.result = data;
+        this.error = null;
       },
       (error: HttpErrorResponse) => {
-        this.result = error.error
+        this.error = error.error
         console.log(error.message);
         console.log(error);
       });
@@ -44,6 +47,7 @@ export class ExpressionCalculatorComponent implements OnInit {
 
   getErrorMessage(): string {
     if (this.expressionForm.hasError('required')) {
+      console.log('eror')
       return 'Where is the expression??\n'
     }
   }
