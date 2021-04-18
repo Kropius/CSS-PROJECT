@@ -1,5 +1,6 @@
 package css.be.service.expressionImpl;
 
+import css.be.controllers.model.ExpressionResponse;
 import css.be.controllers.model.ExpressionTree;
 import css.be.controllers.model.Node;
 import css.be.controllers.model.OperandsBody;
@@ -23,14 +24,22 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 
     @Override
     public String calculate(String expression) {
-        ExpressionTree expressionTree = new ExpressionTree(new Node(""), null, null, null);
-        ExpressionTree leftSubTree = new ExpressionTree(new Node(""), null, null, expressionTree);
-        expressionTree.setLeft(leftSubTree);
-        return evaluateExpressionTree(buildExpressionTree(getListOfTokens(expression), leftSubTree, 0));
+        List<String> steps = new ArrayList<>();
+        String result = evaluateExpressionTree(buildExpressionTree(getListOfTokens(expression), createStartingTree().getLeft(), 0), steps);
+        ExpressionResponse expressionResponse = new ExpressionResponse(steps, result);
+        return expressionResponse.getJsonResponse();
 //        return buildExpressionTree(getListOfTokens(expression), expressionTree, 0).toString();
     }
 
-    private List<String> getListOfTokens(String expression) {
+    ExpressionTree createStartingTree() {
+        ExpressionTree expressionTree = new ExpressionTree(new Node(""), null, null, null);
+        ExpressionTree leftSubTree = new ExpressionTree(new Node(""), null, null, expressionTree);
+        expressionTree.setLeft(leftSubTree);
+        return expressionTree;
+    }
+
+    @Override
+    public List<String> getListOfTokens(String expression) {
         String digits = "0123456789";
         String operators = "(+-*/^)";
         List<String> tokens = new ArrayList<>();
@@ -76,7 +85,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         return tokens;
     }
 
-    private ExpressionTree buildExpressionTree(List<String> tokens, ExpressionTree root, int index) {
+    ExpressionTree buildExpressionTree(List<String> tokens, ExpressionTree root, int index) {
         if (index >= tokens.size()) {
             return root;
         }
@@ -99,25 +108,44 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         }
     }
 
-    private String evaluateExpressionTree(ExpressionTree expressionTree) {
+    String evaluateExpressionTree(ExpressionTree expressionTree, List<String> steps) {
+
+        String leftResult = "";
+        String rightResult = "";
+        if (expressionTree.getLeft() != null)
+            leftResult = evaluateExpressionTree(expressionTree.getLeft(), steps);
+        if (expressionTree.getRight() != null)
+            rightResult = evaluateExpressionTree(expressionTree.getRight(), steps);
+
         if (expressionTree.getRoot().getValue().equals("+")) {
-//            return additionCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
-            return String.valueOf(Integer.parseInt(evaluateExpressionTree(expressionTree.getLeft())) + Integer.parseInt(evaluateExpressionTree(expressionTree.getRight())));
+            String thisResult = additionCalculatorService.operate(new OperandsBody(leftResult, rightResult));
+            steps.add(leftResult + " + " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         else if (expressionTree.getRoot().getValue().equals("-")) {
-            return substractionCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
+            String thisResult = substractionCalculatorService.operate(new OperandsBody(leftResult, rightResult));
+            steps.add(leftResult + " - " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         else if (expressionTree.getRoot().getValue().equals("*")) {
-            return multiplicationCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
+            String thisResult = multiplicationCalculatorService.operate(new OperandsBody(leftResult, rightResult));
+            steps.add(leftResult + " * " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         else if (expressionTree.getRoot().getValue().equals("/")) {
-            return divisionCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
+            String thisResult = divisionCalculatorService.operate(new OperandsBody(leftResult, rightResult));
+            steps.add(leftResult + " / " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         else if (expressionTree.getRoot().getValue().equals("^")) {
-            return powerCalculatorService.operate(new OperandsBody(evaluateExpressionTree(expressionTree.getLeft()), evaluateExpressionTree(expressionTree.getRight())));
+            String thisResult = powerCalculatorService.operate(new OperandsBody(leftResult, rightResult));
+            steps.add(leftResult + " ^ " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         else if (expressionTree.getRoot().getValue().equals("sqrt")) {
-            squareRootCalculatorService.operate(evaluateExpressionTree(expressionTree.getRight()));
+            String thisResult = squareRootCalculatorService.operate(rightResult);
+            steps.add("sqrt " + rightResult + " = " + thisResult);
+            return thisResult;
         }
         return expressionTree.getRoot().getValue();
     }
