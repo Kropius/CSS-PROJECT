@@ -16,7 +16,7 @@ public class AdditionCalculatorService implements OperationCalculatorService {
 
         swapNumbersIfSmaller(numbers);
 
-        reverseNumbers(numbers);
+        NumbersHelper.reverseNumbers(numbers);
 
         return performAddition(numbers);
     }
@@ -27,12 +27,6 @@ public class AdditionCalculatorService implements OperationCalculatorService {
             numbers.setFirstNumber(numbers.getSecondNumber());
             numbers.setSecondNumber(firstNumber);
         }
-    }
-
-    private void reverseNumbers(OperandsBody operandsBody) {
-        operandsBody.setFirstNumber(new StringBuilder(operandsBody.getFirstNumber()).reverse().toString());
-        operandsBody.setSecondNumber(new StringBuilder(operandsBody.getSecondNumber()).reverse().toString());
-
     }
 
     private String performAddition(OperandsBody numbers) {
