@@ -1,5 +1,6 @@
 package css.be.service.expressionImpl;
 
+import css.be.common.ExpressionValidator;
 import css.be.controllers.model.ExpressionResponse;
 import css.be.controllers.model.ExpressionTree;
 import css.be.controllers.model.Node;
@@ -25,7 +26,9 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
     @Override
     public String calculate(String expression) {
         List<String> steps = new ArrayList<>();
-        String result = evaluateExpressionTree(buildExpressionTree(getListOfTokens(expression), createStartingTree().getLeft(), 0), steps);
+        List<String> tokens = getListOfTokens(expression);
+        ExpressionValidator.validate(tokens);
+        String result = evaluateExpressionTree(buildExpressionTree(tokens, createStartingTree().getLeft(), 0), steps);
         ExpressionResponse expressionResponse = new ExpressionResponse(steps, result);
         return expressionResponse.getJsonResponse();
 //        return buildExpressionTree(getListOfTokens(expression), expressionTree, 0).toString();
