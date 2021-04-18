@@ -9,7 +9,7 @@
     {{error}}
   </div>
 
-  <button type="submit">Calculate</button>
+  <button type="submit" [disabled]="expressionForm.invalid">Calculate</button>
   <div class="expression-container">
     <div *ngIf="result!=null" class="alert alert-success">
       The following steps were performed:

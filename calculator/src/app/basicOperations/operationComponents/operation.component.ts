@@ -11,6 +11,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class OperationComponent implements OnInit {
   result: string;
+  error: string;
   operationInput: OperationInput;
   numberForm: FormGroup;
 
@@ -23,12 +24,13 @@ export class OperationComponent implements OnInit {
     this.operationInput.secondNumber = this.numberFormControl.secondNumber.value;
 
     this.operationService.calculate(this.operation, this.operationInput).subscribe(
-      data =>{
-      this.result = data;
-    },
-      (error: HttpErrorResponse) => {this.result = error.error
-      console.log(error.message);
-      console.log(error);
+      data => {
+        this.result = data;
+        this.error = null;
+      },
+      (error: HttpErrorResponse) => {
+        this.error = error.error
+        this.result = null;
       });
   }
 
@@ -43,10 +45,10 @@ export class OperationComponent implements OnInit {
       ]),
       secondNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[1-9]+[0-9]*$')
+        Validators.pattern('^0|([1-9]+[0-9]*)$')
       ])
     });
-    this.operationInput = {firstNumber:"",secondNumber:""}
+    this.operationInput = {firstNumber: "", secondNumber: ""}
 
   }
 
@@ -61,6 +63,11 @@ export class OperationComponent implements OnInit {
 
   get numberFormControl() {
     return this.numberForm.controls;
+  }
+
+  onTyping(typed: string):void{
+    this.error = null;
+    console.log(typed);
   }
 
 }
