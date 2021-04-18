@@ -1,16 +1,25 @@
 <form (ngSubmit)="onSubmit()">
 
   <label>Enter the expression</label>
-  <input class="firstNumber" id="firstNumber" [formControl]="expressionForm" />
+  <input class="firstNumber" id="firstNumber" [formControl]="expressionForm"/>
 
 
-  <div *ngIf="expressionForm.invalid && (expressionForm.dirty || expressionForm.touched)" class="alert alert-danger">
+  <div *ngIf="(expressionForm.invalid && (expressionForm.dirty || expressionForm.touched)) || error != null" class="alert alert-danger">
     {{getErrorMessage()}}
+    {{error}}
   </div>
 
-  <button type="submit" >Calculate</button>
-  <div *ngIf="result!=null" class="alert alert-success">
-    {{result}}
+  <button type="submit">Calculate</button>
+  <div class="expression-container">
+    <div *ngIf="result!=null" class="alert alert-success">
+      The following steps were performed:
+      <div *ngFor="let expression of result.intermediaryOperations">
+        {{expression}}
+      </div>
+
+    </div>
+    <div *ngIf="result!=null" class="alert alert-success">And the result is: {{result.finalResult}}</div>
   </div>
+
 
 </form>
