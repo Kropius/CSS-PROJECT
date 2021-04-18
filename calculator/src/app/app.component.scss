@@ -1,8 +1,14 @@
-.main{
+.normal-operations{
   margin-top:50px;
   display: grid;
-  grid-template-columns: 26.66% 26.66% 26.66%;
-  gap:16px;
-  //width:66%;
-  margin-left: 10%;
+  grid-template-columns: 31.3% 31.3% 31.3%;
+  gap:3%;
+}
+.main{
+  margin-left:16.5%;
+  margin-right: 16.5%;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+
 }

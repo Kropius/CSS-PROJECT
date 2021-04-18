@@ -9,11 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
+import { RootComponent } from './basicOperations/root/root.component';
+import { ExpressionCalculatorComponent } from './complexOperations/expression-calculator/expression-calculator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OperationComponent,
+    RootComponent,
+    ExpressionCalculatorComponent,
 ],
   imports: [
     BrowserModule,

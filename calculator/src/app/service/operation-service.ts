@@ -8,12 +8,12 @@ import {OperationInput} from "../models/OperationInput";
   providedIn: 'root'
 })
 export class OperationService {
-  url: string = 'http://localhost:8080/operation';
+  url: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
 
-  calculate(symbol: string, operationInput: OperationInput): Observable<string>{
+  public calculate(symbol: string, operationInput: OperationInput): Observable<string> {
     if (symbol === 'Add') {
       return this.add(operationInput);
     } else if (symbol == 'Minus') {
@@ -23,45 +23,51 @@ export class OperationService {
     } else if (symbol == 'Division') {
       return this.division(operationInput)
     } else if (symbol == 'Multiply') {
-      return  this.multiply(operationInput);
-    } else if (symbol == 'Square root') {
-      return this.square(operationInput);
+      return this.multiply(operationInput);
     }
   }
 
+  public root(rootOperand: string): Observable<string> {
+    return this.http.post(`${this.url}/operation/square`, rootOperand, {
+      responseType: 'text'
+    })
+  }
+
+  public calculateExpression(expression: string): Observable<string> {
+    return this.http.post(`${this.url}/compound/`, expression, {
+      responseType: 'text'
+    })
+  }
+
   private add(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/addition`, operationInput, {
+    return this.http.post(`${this.url}/operation/addition`, operationInput, {
       responseType: 'text'
     })
   }
 
   private multiply(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/multiplication`, operationInput, {
+    return this.http.post(`${this.url}/operation/multiplication`, operationInput, {
       responseType: 'text'
     })
   }
 
   private substraction(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/substraction`, operationInput, {
+    return this.http.post(`${this.url}/operation/substraction`, operationInput, {
       responseType: 'text'
     })
   }
 
   private division(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/division`, operationInput, {
+    return this.http.post(`${this.url}/operation/division`, operationInput, {
       responseType: 'text'
     })
   }
 
   private power(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/power`, operationInput, {
+    return this.http.post(`${this.url}/operation/power`, operationInput, {
       responseType: 'text'
     })
   }
 
-  private square(operationInput: OperationInput): Observable<string> {
-    return this.http.post(`${this.url}/square`, operationInput, {
-      responseType: 'text'
-    })
-  }
+
 }

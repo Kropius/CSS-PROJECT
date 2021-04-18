@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit()">
+
+  <label>Enter the expression</label>
+  <input class="firstNumber" id="firstNumber" [formControl]="expressionForm" />
+
+
+  <div *ngIf="expressionForm.invalid && (expressionForm.dirty || expressionForm.touched)" class="alert alert-danger">
+    {{getErrorMessage()}}
+  </div>
+
+  <button type="submit" >Calculate</button>
+  <div *ngIf="result!=null" class="alert alert-success">
+    {{result}}
+  </div>
+
+</form>
