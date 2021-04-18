@@ -68,7 +68,7 @@ public class SubstractionCalculatorService implements OperationCalculatorService
             correctionLength --;
         }
 
-        String result= new StringBuilder(new String(results)).toString().substring(0, correctionLength + 1);
+        String result= new StringBuilder(new String(results)).substring(0, correctionLength + 1);
         return new StringBuilder(result).reverse().toString();
     }
 

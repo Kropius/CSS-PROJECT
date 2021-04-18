@@ -10,7 +10,6 @@ public class MultiplicationCalculatorService implements OperationCalculatorServi
     @Override
     public String operate(OperandsBody numbers) {
 
-        System.out.println("Multiplication");
         NumberValidator.validate(numbers.getFirstNumber());
         NumberValidator.validate(numbers.getSecondNumber());
 
