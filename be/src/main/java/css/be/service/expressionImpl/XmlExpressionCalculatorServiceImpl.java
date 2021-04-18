@@ -28,7 +28,7 @@ public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorS
 
     @Override
     public List<String> getListOfTokens(String expression) {
-        String continuousExpression = expression.replaceAll("[\\t|\\n|\\r]+", "");
+        String continuousExpression = expression.replaceAll("[\\t|\\n|\\r|\\s]+", "");
         List<String> tokens = new ArrayList<>();
         for (int i = 0; i<continuousExpression.length(); i++) {
             char c = continuousExpression.charAt(i);
