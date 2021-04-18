@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit()">
+
+  <label>Enter the first number</label>
+  <input class="firstNumber" id="firstNumber" [formControl]="numberForm" />
+
+
+  <div *ngIf="numberForm.invalid && (numberForm.dirty || numberForm.touched)" class="alert alert-danger">
+    {{getErrorMessage()}}
+  </div>
+
+  <button type="submit" >Root</button>
+    <div *ngIf="result!=null" class="alert alert-success">
+      {{result}}
+    </div>
+
+</form>

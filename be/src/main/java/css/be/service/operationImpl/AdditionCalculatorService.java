@@ -38,7 +38,7 @@ public class AdditionCalculatorService implements OperationCalculatorService {
     private String performAddition(OperandsBody numbers) {
         char[] firstNumber = numbers.getFirstNumber().toCharArray();
         char[] secondNumber = numbers.getSecondNumber().toCharArray();
-        char[] results = new char[firstNumber.length + 1];
+        char[] results = new char[firstNumber.length];
         int currentDigitIndex = 0;
         int carry = 0;
 
@@ -56,8 +56,10 @@ public class AdditionCalculatorService implements OperationCalculatorService {
             carry = currentDigitResult / 10;
         }
         if (carry != 0) {
-            results[currentDigitIndex] = (char) (carry + '0');
+
+            return new StringBuilder(new String(results)+(char)(carry+'0')).reverse().toString();
         }
+
 
         return new StringBuilder(new String(results)).reverse().toString();
 
