@@ -14,25 +14,11 @@ public class AdditionCalculatorService implements OperationCalculatorService {
         NumberValidator.validate(numbers.getFirstNumber());
         NumberValidator.validate(numbers.getSecondNumber());
 
-        swapNumbersIfSmaller(numbers);
+        NumbersHelper.swapNumbersIfSmaller(numbers);
 
-        reverseNumbers(numbers);
+        NumbersHelper.reverseNumbers(numbers);
 
         return performAddition(numbers);
-    }
-
-    private void swapNumbersIfSmaller(OperandsBody numbers) {
-        if (numbers.getFirstNumber().length() < numbers.getSecondNumber().length()) {
-            String firstNumber = numbers.getFirstNumber();
-            numbers.setFirstNumber(numbers.getSecondNumber());
-            numbers.setSecondNumber(firstNumber);
-        }
-    }
-
-    private void reverseNumbers(OperandsBody operandsBody) {
-        operandsBody.setFirstNumber(new StringBuilder(operandsBody.getFirstNumber()).reverse().toString());
-        operandsBody.setSecondNumber(new StringBuilder(operandsBody.getSecondNumber()).reverse().toString());
-
     }
 
     private String performAddition(OperandsBody numbers) {
