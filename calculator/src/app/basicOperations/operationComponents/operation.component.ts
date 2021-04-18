@@ -41,11 +41,11 @@ export class OperationComponent implements OnInit {
     this.numberForm = new FormGroup({
       firstNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[1-9]+[0-9]*$')
+        Validators.pattern('^(0|[1-9]\\d*)$')
       ]),
       secondNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^0|([1-9]+[0-9]*)$')
+        Validators.pattern('^(0|[1-9]\\d*)$')
       ])
     });
     this.operationInput = {firstNumber: "", secondNumber: ""}
@@ -67,7 +67,6 @@ export class OperationComponent implements OnInit {
 
   onTyping(typed: string):void{
     this.error = null;
-    console.log(typed);
   }
 
 }
