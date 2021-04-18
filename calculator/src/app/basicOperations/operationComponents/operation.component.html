@@ -1,16 +1,22 @@
 <form [formGroup]="numberForm" (ngSubmit)="onSubmit()">
 
   <label>Enter the first number</label>
-  <input class="firstNumber" id="firstNumber" formControlName="firstNumber"/>
+  <input class="firstNumber" id="firstNumber" formControlName="firstNumber"  (input)="onTyping($event.target.value)"/>
 
   <label>Enter the second number</label>
-  <input class="secondNumber" id="secondNumber" formControlName="secondNumber"/>
+  <input class="secondNumber" id="secondNumber" formControlName="secondNumber"  (input)="onTyping($event.target.value)"/>
 
-  <div *ngIf="numberForm.invalid && (numberForm.dirty || numberForm.touched)" class="alert alert-danger">
+  <div *ngIf="(numberForm.invalid && (numberForm.dirty || numberForm.touched))  && error==null"
+       class="alert alert-danger">
     {{getErrorMessage()}}
   </div>
 
-  <button type="submit" >{{operation}}</button>
+  <div *ngIf="error!=null" class="alert alert-danger">
+    {{error}}
+  </div>
+
+
+  <button type="submit" [disabled]="numberForm.invalid">{{operation}}</button>
   <div *ngIf="result!=null" class="alert alert-success">
     {{result}}
   </div>
