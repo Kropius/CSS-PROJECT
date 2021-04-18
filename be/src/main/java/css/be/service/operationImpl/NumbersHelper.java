@@ -25,10 +25,14 @@ public class NumbersHelper {
             return true;
         } else if (firstNumber.length == secondNumber.length) {
             int currentDigitIndex = 0;
-            while (currentDigitIndex < firstNumber.length && firstNumber[currentDigitIndex] <= secondNumber[currentDigitIndex])
-                currentDigitIndex ++;
-            if (currentDigitIndex == firstNumber.length && firstNumber[currentDigitIndex - 1] < secondNumber[currentDigitIndex - 1]) {
-                return true;
+            while (currentDigitIndex < firstNumber.length) {
+                if (secondNumber[currentDigitIndex] > firstNumber[currentDigitIndex]) {
+                    return true;
+                }
+                if (firstNumber[currentDigitIndex] > secondNumber[currentDigitIndex]) {
+                    return false;
+                }
+                currentDigitIndex++;
             }
         }
         return false;

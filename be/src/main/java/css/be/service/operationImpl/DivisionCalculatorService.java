@@ -13,6 +13,9 @@ public class DivisionCalculatorService implements OperationCalculatorService {
         NumberValidator.validate(numbers.getFirstNumber());
         NumberValidator.validate(numbers.getSecondNumber());
         NumberValidator.validateDivisionBy0(numbers.getSecondNumber());
+        if (NumbersHelper.checkIfSecondIsBigger(numbers)) {
+            return "0";
+        }
         try {
             Integer.parseInt(numbers.getSecondNumber());
             return performDivisionForSmallDivisor(numbers);
