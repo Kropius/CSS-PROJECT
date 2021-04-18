@@ -28,8 +28,8 @@ export class ExpressionCalculatorComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.error = error.error
-        console.log(error.message);
-        console.log(error);
+        this.result = null;
+
       });
   }
 
@@ -39,7 +39,6 @@ export class ExpressionCalculatorComponent implements OnInit {
   ngOnInit(): void {
     this.expressionForm = new FormControl(null, [
       Validators.required,
-      Validators.pattern('^[1-9]+[0-9]*$')
     ])
     this.expression = "";
 
