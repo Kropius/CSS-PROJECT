@@ -5,6 +5,7 @@ import css.be.controllers.model.ExpressionResponse;
 import css.be.controllers.model.ExpressionTree;
 import css.be.service.ExpressionCalculatorService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,7 +14,12 @@ import java.util.List;
 @Component
 public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorService {
 
-    private ExpressionCalculatorServiceImpl expressionCalculatorService = new ExpressionCalculatorServiceImpl();
+    private ExpressionCalculatorServiceImpl expressionCalculatorService;
+
+    @Autowired
+    public XmlExpressionCalculatorServiceImpl (ExpressionCalculatorServiceImpl expressionCalculatorService) {
+        this.expressionCalculatorService = expressionCalculatorService;
+    }
 
     @Override
     public String calculate(String expression) {

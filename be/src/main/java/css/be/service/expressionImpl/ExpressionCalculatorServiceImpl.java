@@ -7,6 +7,7 @@ import css.be.controllers.model.Node;
 import css.be.controllers.model.OperandsBody;
 import css.be.service.ExpressionCalculatorService;
 import css.be.service.operationImpl.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,12 +17,27 @@ import java.util.Stack;
 @Component
 public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorService {
 
-    private AdditionCalculatorService additionCalculatorService = new AdditionCalculatorService();
-    private DivisionCalculatorService divisionCalculatorService = new DivisionCalculatorService();
-    private MultiplicationCalculatorService multiplicationCalculatorService = new MultiplicationCalculatorService();
-    private SquareRootCalculatorService squareRootCalculatorService = new SquareRootCalculatorService();
-    private PowerCalculatorService powerCalculatorService = new PowerCalculatorService();
-    private SubstractionCalculatorService substractionCalculatorService = new SubstractionCalculatorService();
+    private AdditionCalculatorService additionCalculatorService;
+    private DivisionCalculatorService divisionCalculatorService;
+    private MultiplicationCalculatorService multiplicationCalculatorService;
+    private SquareRootCalculatorService squareRootCalculatorService;
+    private PowerCalculatorService powerCalculatorService;
+    private SubstractionCalculatorService substractionCalculatorService;
+
+    @Autowired
+    public ExpressionCalculatorServiceImpl (AdditionCalculatorService additionCalculatorService,
+                                            DivisionCalculatorService divisionCalculatorService,
+                                            MultiplicationCalculatorService multiplicationCalculatorService,
+                                            SquareRootCalculatorService squareRootCalculatorService,
+                                            PowerCalculatorService powerCalculatorService,
+                                            SubstractionCalculatorService substractionCalculatorService) {
+        this.additionCalculatorService = additionCalculatorService;
+        this.divisionCalculatorService = divisionCalculatorService;
+        this.multiplicationCalculatorService = multiplicationCalculatorService;
+        this.squareRootCalculatorService = squareRootCalculatorService;
+        this.powerCalculatorService = powerCalculatorService;
+        this.substractionCalculatorService = substractionCalculatorService;
+    }
 
     @Override
     public String calculate(String expression) {
