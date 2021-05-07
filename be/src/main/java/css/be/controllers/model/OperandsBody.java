@@ -18,4 +18,7 @@ public class OperandsBody {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
     }
+
+    public OperandsBody() {
+    }
 }
