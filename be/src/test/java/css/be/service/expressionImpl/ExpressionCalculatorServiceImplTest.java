@@ -3,10 +3,13 @@ package css.be.service.expressionImpl;
 import css.be.controllers.model.OperandsBody;
 import css.be.service.ExpressionCalculatorService;
 import css.be.service.operationImpl.*;
+import org.json.*;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ExpressionCalculatorServiceImplTest {
 
@@ -37,8 +40,44 @@ public class ExpressionCalculatorServiceImplTest {
     }
 
     @Test
-    public void FivePlusTwoExpressionEqualsSeven() {
+    public void checkListOfTokensForExpressionWithTwoOperands() {
+        String testExpression = "5 ^ 2";
+        List<String> expected = Arrays.asList("5", "^", "2");
+        Assert.assertEquals(expected, expressionCalculatorService.getListOfTokens(testExpression));
+    }
+
+    @Test
+    public void checkListOfTokensForExpressionWithOneOperand() {
+        String testExpression = "sqrt 9";
+        List<String> expected = Arrays.asList("sqrt", "9");
+        Assert.assertEquals(expected, expressionCalculatorService.getListOfTokens(testExpression));
+    }
+
+    @Test
+    public void checkListOfTokensForExpressionWithParentheses() {
+        String testExpression = "(4 / 2)+1";
+        List<String> expected = Arrays.asList("(", "4", "/", "2", ")", "+", "1");
+        Assert.assertEquals(expected, expressionCalculatorService.getListOfTokens(testExpression));
+    }
+
+    @Test
+    public void checkListOfTokensForWrongCharacterIgnoring() {
+        String testExpression = "asb10 -(%&5 @+ !@2)";
+        List<String> expected = Arrays.asList("10", "-", "(", "5", "+", "2", ")");
+        Assert.assertEquals(expected, expressionCalculatorService.getListOfTokens(testExpression));
+    }
+
+    @Test
+    public void fivePlusTwoExpressionEqualsSeven() throws JSONException {
         Mockito.when(additionCalculatorService.operate(new OperandsBody("5", "2"))).thenReturn("7");
-        Assert.assertEquals("7", expressionCalculatorService.calculate("5+2"));
+        String result = expressionCalculatorService.calculate("5+2");
+        JSONObject resultObject = null;
+        try {
+            resultObject = new JSONObject(result);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals("7", resultObject.getString("finalResult"));
     }
 }
