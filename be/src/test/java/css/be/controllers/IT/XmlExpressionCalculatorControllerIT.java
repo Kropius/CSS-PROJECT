@@ -1,4 +1,4 @@
-package css.be.controllers;
+package css.be.controllers.IT;
 
 public class XmlExpressionCalculatorControllerIT {
 }
