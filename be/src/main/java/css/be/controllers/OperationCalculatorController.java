@@ -39,7 +39,6 @@ public class OperationCalculatorController {
     @PostMapping(value = "addition")
     @ResponseStatus(HttpStatus.OK)
     public String addNumbers(@Valid @RequestBody OperandsBody numbers) {
-        System.out.println(numbers.getFirstNumber());
         return additionService.operate(numbers);
     }
 
