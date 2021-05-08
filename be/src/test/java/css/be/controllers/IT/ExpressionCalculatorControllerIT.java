@@ -1,13 +1,11 @@
 package css.be.controllers.IT;
 
-import css.be.controllers.model.OperandsBody;
 import css.be.service.expressionImpl.ExpressionCalculatorServiceImpl;
-import css.be.service.operationImpl.AdditionCalculatorService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -32,6 +30,7 @@ public class ExpressionCalculatorControllerIT {
     }
 
     @Test
+    @Ignore("Ignoring integration tests for the moment")
     public void postExpressionShouldReturnResult() {
 
         Mockito.when(expressionCalculatorService.calculate("5+2")).thenReturn("7");

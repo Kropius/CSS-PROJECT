@@ -8,22 +8,22 @@ import java.util.Arrays;
 public class ExpressionValidatorTest {
 
     @Test (expected = InvalidExpressionException.class)
-    public void checkExpressionInvalidWhenOpenParenthesesNotEqualToClosedParentheses() {
+    public void checkExpressionInvalidWhenOpenParenthesesNotEqualToClosedParentheses() throws InvalidExpressionException{
         ExpressionValidator.validate(Arrays.asList("(", "(", "5", "+", "2", ")", "-", "1"));
     }
 
     @Test (expected = InvalidExpressionException.class)
-    public void checkExpressionInvalidWhenClosedParenthesesBeforeOpenParentheses() {
+    public void checkExpressionInvalidWhenClosedParenthesesBeforeOpenParentheses() throws InvalidExpressionException{
         ExpressionValidator.validate(Arrays.asList(")", "5", "+", "2", "("));
     }
 
     @Test (expected = InvalidExpressionException.class)
-    public void checkExpressionInvalidWhenMainOperationInParentheses() {
+    public void checkExpressionInvalidWhenMainOperationInParentheses() throws InvalidExpressionException{
         ExpressionValidator.validate(Arrays.asList("(", "(", "5", "+", "2", ")", "/", "3", ")"));
     }
 
     @Test (expected = InvalidExpressionException.class)
-    public void checkExpressionInvalidWhenOperationOrderNotDefinedWithParentheses() {
+    public void checkExpressionInvalidWhenOperationOrderNotDefinedWithParentheses() throws InvalidExpressionException{
         ExpressionValidator.validate(Arrays.asList("5", "+", "2", "/", "3"));
     }
 
