@@ -50,7 +50,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 //        return buildExpressionTree(getListOfTokens(expression), expressionTree, 0).toString();
     }
 
-    ExpressionTree createStartingTree() {
+    public ExpressionTree createStartingTree() {
         ExpressionTree expressionTree = new ExpressionTree(new Node(""), null, null, null);
         ExpressionTree leftSubTree = new ExpressionTree(new Node(""), null, null, expressionTree);
         expressionTree.setLeft(leftSubTree);
@@ -104,7 +104,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         return tokens;
     }
 
-    ExpressionTree buildExpressionTree(List<String> tokens, ExpressionTree root, int index) {
+    public ExpressionTree buildExpressionTree(List<String> tokens, ExpressionTree root, int index) {
         if (index >= tokens.size()) {
             return root;
         }
@@ -127,7 +127,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         }
     }
 
-    String evaluateExpressionTree(ExpressionTree expressionTree, List<String> steps) {
+    public String evaluateExpressionTree(ExpressionTree expressionTree, List<String> steps) {
 
         String leftResult = "";
         String rightResult = "";

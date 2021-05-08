@@ -1,4 +1,46 @@
 package css.be.controllers.IT;
 
+import css.be.service.expressionImpl.ExpressionCalculatorServiceImpl;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ExpressionCalculatorControllerIT {
+
+    private static final String URL = "http://localhost:8080";
+
+    private static RestTemplate restTemplate;
+
+    private ExpressionCalculatorServiceImpl expressionCalculatorService;
+
+    @BeforeEach
+    public void init() {
+        restTemplate = new RestTemplate();
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(URL));
+        expressionCalculatorService = Mockito.mock(ExpressionCalculatorServiceImpl.class);
+    }
+
+    @Test
+    @Ignore("Ignoring integration tests for the moment")
+    public void postExpressionShouldReturnResult() {
+
+        Mockito.when(expressionCalculatorService.calculate("5+2")).thenReturn("7");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange("/compound", HttpMethod.POST, new HttpEntity<>("5+2", headers), String.class);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
+
+        Assert.assertEquals(responseEntity.getBody(), "7");
+    }
 }
