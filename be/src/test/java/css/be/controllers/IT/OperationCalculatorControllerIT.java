@@ -1,4 +1,4 @@
-package css.be.controllers;
+package css.be.controllers.IT;
 
 import css.be.controllers.model.OperandsBody;
 import css.be.service.operationImpl.*;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class OperationCalculatorControllerIT {
 
     private RestTemplate restTemplate;
