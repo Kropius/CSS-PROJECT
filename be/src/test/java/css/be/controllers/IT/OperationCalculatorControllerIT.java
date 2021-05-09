@@ -2,6 +2,7 @@ package css.be.controllers.IT;
 
 import css.be.controllers.model.OperandsBody;
 import css.be.service.operationImpl.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class OperationCalculatorControllerIT {
 
@@ -27,6 +29,7 @@ public class OperationCalculatorControllerIT {
     }
 
     @Test
+    @Ignore("Ignoring integration tests for the moment")
     public void test() {
         OperandsBody operandsBody = new OperandsBody("1", "2");
         ResponseEntity<String> responseEntity = restTemplate.exchange("/addition", HttpMethod.POST, new HttpEntity<>(operandsBody), String.class);
