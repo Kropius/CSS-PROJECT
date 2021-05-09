@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class AdditionCalculatorServiceTest {
 
-    private AdditionCalculatorService additionCalculatorService;
+    private final AdditionCalculatorService additionCalculatorService;
 
     public AdditionCalculatorServiceTest() {
         this.additionCalculatorService = new AdditionCalculatorService();

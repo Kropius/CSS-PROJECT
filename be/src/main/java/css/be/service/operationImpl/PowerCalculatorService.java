@@ -37,8 +37,6 @@ public class PowerCalculatorService implements OperationCalculatorService {
             secondNumber = divisionCalculatorService.operate(divNumbers);
             divNumbers.setFirstNumber(secondNumber);
 
-            System.out.println(secondNumber);
-
             mulNumbers.setFirstNumber(firstNumber);
             mulNumbers.setSecondNumber(firstNumber);
             firstNumber = multiplicationCalculatorService.operate(mulNumbers);
