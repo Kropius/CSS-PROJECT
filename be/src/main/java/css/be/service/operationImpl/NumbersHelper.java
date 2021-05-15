@@ -16,6 +16,7 @@ public class NumbersHelper {
             numbers.setFirstNumber(numbers.getSecondNumber());
             numbers.setSecondNumber(firstNumber);
         }
+        assert numbers.getFirstNumber().length() >= numbers.getSecondNumber().length() : "First number is smaller!";
     }
 
     public static boolean checkIfSecondIsBigger(OperandsBody numbers) {
