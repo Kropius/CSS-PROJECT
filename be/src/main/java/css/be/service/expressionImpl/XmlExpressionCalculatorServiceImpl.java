@@ -23,11 +23,18 @@ public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorS
 
     @Override
     public String calculate(String expression) {
+        assert expression!=null && !expression.equals("") : "Expression can't be empty!";
+
         List<String> steps = new ArrayList<>();
         List<String> tokens = getListOfTokens(expression);
+
+        assert !tokens.isEmpty() : "Can't operate with empty list of tokens!";
         ExpressionValidator.validate(tokens);
         ExpressionTree xmlExpressionTree = expressionCalculatorService.buildExpressionTree(tokens, expressionCalculatorService.createStartingTree().getLeft(), 0);
         String result = expressionCalculatorService.evaluateExpressionTree(xmlExpressionTree, steps);
+
+        assert !steps.isEmpty() : "No operation was executed in this expression!";
+
         ExpressionResponse expressionResponse = new ExpressionResponse(steps, result);
         return expressionResponse.getXmlResponse();
     }
@@ -36,6 +43,9 @@ public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorS
     public List<String> getListOfTokens(String expression) {
         String continuousExpression = expression.replaceAll("[\\t|\\n|\\r|\\s]+", "");
         List<String> tokens = new ArrayList<>();
+
+        assert !continuousExpression.matches(".*[\\t\\n\\r\\s].*") : "The elimination of indentation and spaces from the initial expression has failed!";
+
         for (int i = 0; i<continuousExpression.length(); i++) {
             char c = continuousExpression.charAt(i);
             if (c == '<') {
@@ -71,6 +81,10 @@ public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorS
 
             }
         }
+
+        String assertionRegex = "[^+\\-*/^sqrt()0123456789]+";
+        for (String assertionToken: tokens)
+            assert !assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
         return tokens;
     }
 

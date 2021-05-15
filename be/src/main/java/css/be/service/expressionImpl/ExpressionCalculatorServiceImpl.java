@@ -41,19 +41,28 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 
     @Override
     public String calculate(String expression) {
+        assert expression!=null && !expression.equals("") : "Expression can't be empty!";
+
         List<String> steps = new ArrayList<>();
         List<String> tokens = getListOfTokens(expression);
+
+        assert !tokens.isEmpty() : "Can't operate with empty list of tokens!";
+
         ExpressionValidator.validate(tokens);
         String result = evaluateExpressionTree(buildExpressionTree(tokens, createStartingTree().getLeft(), 0), steps);
+
+        assert !steps.isEmpty() : "No operation was executed in this expression!";
+
         ExpressionResponse expressionResponse = new ExpressionResponse(steps, result);
         return expressionResponse.getJsonResponse();
-//        return buildExpressionTree(getListOfTokens(expression), expressionTree, 0).toString();
     }
 
     public ExpressionTree createStartingTree() {
         ExpressionTree expressionTree = new ExpressionTree(new Node(""), null, null, null);
         ExpressionTree leftSubTree = new ExpressionTree(new Node(""), null, null, expressionTree);
         expressionTree.setLeft(leftSubTree);
+
+        assert expressionTree.getLeft() != null: "Left child of expression tree is not set correctly!";
         return expressionTree;
     }
 
@@ -101,10 +110,17 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 
         }
 
+        String assertionRegex = "[^+\\-*/^sqrt()0123456789]+";
+        for (String assertionToken: tokens)
+            assert !assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
+
         return tokens;
     }
 
     public ExpressionTree buildExpressionTree(List<String> tokens, ExpressionTree root, int index) {
+
+        assert index <= tokens.size() : "Algorithm should stop when index surpasses the number of elements in the tokens list!";
+
         if (index >= tokens.size()) {
             return root;
         }
@@ -119,9 +135,15 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         if ("+-/*^sqrt".contains(token)) {
             root.getRoot().setValue(token);
             root.setRight(new ExpressionTree(new Node(""), null, null, root));
+
+            if (token.equals("sqrt"))
+                assert root.getLeft() == null : "SQRT node should have only a right child!";
+
             return buildExpressionTree(tokens, root.getRight(), index + 1);
         }
         else {
+            assert token.matches("[0123456789]+") : "The 'else' branch from the expression tree building should process only numbers at this point!";
+
             root.getRoot().setValue(token);
             return buildExpressionTree(tokens, root.getParent(), index + 1);
         }
@@ -129,12 +151,22 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 
     public String evaluateExpressionTree(ExpressionTree expressionTree, List<String> steps) {
 
+        assert expressionTree.getRoot() != null : "Can't calculate expression using a tree with NULL root!";
+
         String leftResult = "";
         String rightResult = "";
-        if (expressionTree.getLeft() != null)
+        if (expressionTree.getLeft() != null) {
             leftResult = evaluateExpressionTree(expressionTree.getLeft(), steps);
-        if (expressionTree.getRight() != null)
+
+            assert !leftResult.isEmpty() : "Operation result should not be empty!";
+            assert leftResult.matches("[0123456789]+") : "Result should contain only numbers!";
+        }
+        if (expressionTree.getRight() != null) {
             rightResult = evaluateExpressionTree(expressionTree.getRight(), steps);
+
+            assert !rightResult.isEmpty() : "Operation result should not be empty!";
+            assert rightResult.matches("[0123456789]+") : "Result should contain only numbers!";
+        }
 
         if (expressionTree.getRoot().getValue().equals("+")) {
             String thisResult = additionCalculatorService.operate(new OperandsBody(leftResult, rightResult));

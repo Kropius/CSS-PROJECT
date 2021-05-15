@@ -18,6 +18,9 @@ public class ExpressionValidator {
     private static void validateEqualNumberOfParantheses(List<String> tokens){
         int nrOpenParantheses = 0;
         for (String token: tokens) {
+
+            assert token != null : "Found NULL token at validation time!";
+
             if (token.equals("("))
                 nrOpenParantheses++;
             else if (token.equals(")"))
@@ -32,6 +35,9 @@ public class ExpressionValidator {
     private static boolean checkOperatorOutsideParantheses(List<String> tokens) {
         int nrOpenParantheses = 0;
         for (String token: tokens) {
+
+            assert token != null : "Found NULL token at validation time!";
+
             if (token.equals("("))
                 nrOpenParantheses++;
             else if (token.equals(")"))
@@ -50,6 +56,8 @@ public class ExpressionValidator {
     private static void validateNumberOfOperationsBetweenParantheses(List<String> tokens){
         int nrOperatorsBetweenParantheses = 0;
         for (String token: tokens) {
+
+            assert token != null : "Found NULL token at validation time!";
 
             if ("+-*/^sqrt".contains(token))
                 nrOperatorsBetweenParantheses++;
