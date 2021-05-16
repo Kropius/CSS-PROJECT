@@ -82,9 +82,9 @@ public class XmlExpressionCalculatorServiceImpl implements ExpressionCalculatorS
             }
         }
 
-        String assertionRegex = "[^+\\-*/^sqrt()0123456789]+";
+        String assertionRegex = "[+\\-*/^sqrt()0-9]+";
         for (String assertionToken: tokens)
-            assert !assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
+            assert assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
         return tokens;
     }
 

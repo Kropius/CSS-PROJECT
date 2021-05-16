@@ -73,6 +73,9 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
         List<String> tokens = new ArrayList<>();
         StringBuilder token = new StringBuilder();
         for (int letterIndex = 0; letterIndex < expression.length(); letterIndex++) {
+
+            assert token.length() == 0 : "Token should be empty at the beginning of all iterations!";
+
             char c = expression.charAt(letterIndex);
             if (operators.indexOf(c) > -1) {
                 tokens.add(String.valueOf(c));
@@ -110,9 +113,9 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
 
         }
 
-        String assertionRegex = "[^+\\-*/^sqrt()0123456789]+";
+        String assertionRegex = "[+\\-*/^sqrt()0-9]+";
         for (String assertionToken: tokens)
-            assert !assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
+            assert assertionToken.matches(assertionRegex) : "Parser found incorrect characters!";
 
         return tokens;
     }
@@ -142,7 +145,7 @@ public class ExpressionCalculatorServiceImpl implements ExpressionCalculatorServ
             return buildExpressionTree(tokens, root.getRight(), index + 1);
         }
         else {
-            assert token.matches("[0123456789]+") : "The 'else' branch from the expression tree building should process only numbers at this point!";
+            assert token.matches("[0-9]+") : "The 'else' branch from the expression tree building should process only numbers at this point!";
 
             root.getRoot().setValue(token);
             return buildExpressionTree(tokens, root.getParent(), index + 1);
