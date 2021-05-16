@@ -6,6 +6,8 @@ import css.be.exceptions.InvalidNumberException;
 import css.be.service.OperationCalculatorService;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class SubstractionCalculatorService implements OperationCalculatorService {
 
@@ -69,7 +71,10 @@ public class SubstractionCalculatorService implements OperationCalculatorService
         }
 
         String result= new StringBuilder(new String(results)).substring(0, correctionLength + 1);
-        return new StringBuilder(result).reverse().toString();
+
+        result =  new StringBuilder(result).reverse().toString();
+        assert NumbersHelper.checkIfSecondIsBigger(new OperandsBody(Arrays.toString(firstNumber), result));
+        return result;
     }
 
 }

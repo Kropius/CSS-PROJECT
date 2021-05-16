@@ -14,7 +14,6 @@ public class MultiplicationCalculatorService implements OperationCalculatorServi
         NumberValidator.validate(numbers.getSecondNumber());
 
         NumbersHelper.swapNumbersIfSmaller(numbers);
-
         NumbersHelper.reverseNumbers(numbers);
 
         return performMultiplication(numbers);
@@ -56,6 +55,8 @@ public class MultiplicationCalculatorService implements OperationCalculatorServi
             }
         }
 
+        assert result.length() >= firstNumber.length : "Result should be grater then first number";
+        assert result.length() >= secondNumber.length : "Result should be grater then second number";
         return result;
     }
 

@@ -44,6 +44,8 @@ public class PowerCalculatorService implements OperationCalculatorService {
 
         }
 
+        assert result.length() >= firstNumber.length() : "Result should be grater then first number";
+        assert result.length() >= secondNumber.length() : "Result should be grater then second number";
         return result;
     }
 

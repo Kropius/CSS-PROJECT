@@ -13,9 +13,13 @@ public class DivisionCalculatorService implements OperationCalculatorService {
         NumberValidator.validate(numbers.getFirstNumber());
         NumberValidator.validate(numbers.getSecondNumber());
         NumberValidator.validateDivisionBy0(numbers.getSecondNumber());
+
+        assert !numbers.getSecondNumber().equals("0") : "Second number should not be equal to 0";
+
         if (NumbersHelper.checkIfSecondIsBigger(numbers)) {
             return "0";
         }
+
         try {
             Integer.parseInt(numbers.getSecondNumber());
             return performDivisionForSmallDivisor(numbers);
@@ -30,6 +34,7 @@ public class DivisionCalculatorService implements OperationCalculatorService {
         String result = "0";
         String firstNumber = "";
         String secondNumber = numbers.getSecondNumber();
+
         while (!NumbersHelper.checkIfSecondIsBigger(numbers)) {
             firstNumber = substractionCalculatorService.operate(numbers);
             numbers.setFirstNumber(firstNumber);

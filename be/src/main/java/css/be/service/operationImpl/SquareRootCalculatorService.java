@@ -44,6 +44,7 @@ public class SquareRootCalculatorService{
              end = substractionCalculatorService.operate(new OperandsBody(mid, "1"));
          }
      }
+    assert result.length() <= number.length() : "Result should be smaller then number";
     return  result;
     }
 }

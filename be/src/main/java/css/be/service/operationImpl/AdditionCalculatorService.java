@@ -16,6 +16,8 @@ public class AdditionCalculatorService implements OperationCalculatorService {
 
         NumbersHelper.swapNumbersIfSmaller(numbers);
 
+        assert !NumbersHelper.checkIfSecondIsBigger(numbers) : "First number should be bigger";
+
         NumbersHelper.reverseNumbers(numbers);
 
         return performAddition(numbers);
@@ -41,11 +43,14 @@ public class AdditionCalculatorService implements OperationCalculatorService {
             results[currentDigitIndex] = (char) (currentDigitResult % 10 + '0');
             carry = currentDigitResult / 10;
         }
+
+
+        assert results.length >= secondNumber.length : "result should be bigger then the second number";
+
         if (carry != 0) {
 
             return new StringBuilder(new String(results)+(char)(carry+'0')).reverse().toString();
         }
-
 
         return new StringBuilder(new String(results)).reverse().toString();
 
